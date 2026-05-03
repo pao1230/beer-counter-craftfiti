@@ -1,0 +1,151 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Sarabun', sans-serif;
+  background: #f5f5f7;
+  color: #1f2328;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+header h1 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+nav a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #555;
+  background: #e8e8ec;
+  font-size: 14px;
+}
+
+nav a.active {
+  background: #1f6feb;
+  color: white;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.card.empty {
+  text-align: center;
+  color: #888;
+}
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #444;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+input:focus {
+  outline: none;
+  border-color: #1f6feb;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #1f6feb;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button.secondary {
+  background: #e8e8ec;
+  color: #444;
+}
+
+button.danger {
+  background: #d73a49;
+}
+
+button:hover { opacity: 0.9; }
+
+.flash {
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: #e6f4ea;
+  color: #1e7a3a;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+th.num, td.num {
+  text-align: right;
+  width: 1%;
+  white-space: nowrap;
+}
+
+tfoot td {
+  font-weight: 600;
+  border-bottom: none;
+  border-top: 2px solid #ddd;
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.row-actions button {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.row-actions input {
+  margin: 0;
+}
