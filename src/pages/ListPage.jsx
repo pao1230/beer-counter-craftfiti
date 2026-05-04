@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useBeerList } from '../hooks/useBeerList.js'
 
 export default function ListPage() {
-  const { list, update, remove, total, loading, busy, error, refresh } = useBeerList()
+  const { list, update, remove, add, total, loading, busy, error, refresh } = useBeerList()
   const [editingName, setEditingName] = useState(null)
   const [editName, setEditName] = useState('')
   const [editAmount, setEditAmount] = useState('')
@@ -99,6 +99,9 @@ export default function ListPage() {
                       </>
                     ) : (
                       <>
+                        <button className="small" onClick={() => add(entry.name, 1)} disabled={busy}>
+                          +1
+                        </button>
                         <button className="secondary" onClick={() => startEdit(entry)} disabled={busy}>
                           แก้ไข
                         </button>

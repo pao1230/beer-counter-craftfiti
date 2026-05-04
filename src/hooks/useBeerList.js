@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+
+const AUTO_REFRESH_MS = 30_000
 import { sheetsApi } from '../api/sheets.js'
 
 const CACHE_KEY = 'beerListCache'
@@ -27,13 +29,15 @@ export function useBeerList() {
   const [error, setError] = useState(null)
   const [busy, setBusy] = useState(false)
   const mounted = useRef(true)
+  const busyRef = useRef(false)
 
   useEffect(() => () => { mounted.current = false }, [])
 
   const apply = useCallback((next) => {
     if (!mounted.current) return
-    setList(next)
-    saveCache(next)
+    const sorted = [...next].sort((a, b) => b.amount - a.amount)
+    setList(sorted)
+    saveCache(sorted)
   }, [])
 
   const refresh = useCallback(async () => {
@@ -53,7 +57,15 @@ export function useBeerList() {
     refresh()
   }, [refresh])
 
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!busyRef.current) refresh()
+    }, AUTO_REFRESH_MS)
+    return () => clearInterval(id)
+  }, [refresh])
+
   const run = useCallback(async (op) => {
+    busyRef.current = true
     setBusy(true)
     setError(null)
     try {
@@ -63,7 +75,10 @@ export function useBeerList() {
       if (mounted.current) setError(e.message)
       throw e
     } finally {
-      if (mounted.current) setBusy(false)
+      if (mounted.current) {
+        busyRef.current = false
+        setBusy(false)
+      }
     }
   }, [apply])
 
