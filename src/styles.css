@@ -1,113 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: 30 12% 7%;
+  --foreground: 36 30% 88%;
+  --card: 30 10% 11%;
+  --border: 30 8% 16%;
+  --input-bg: 30 8% 14%;
+  --muted: 30 12% 48%;
+  --primary: 36 72% 52%;
+  --primary-foreground: 30 12% 7%;
+  --secondary: 30 8% 22%;
+  --accent: 142 30% 38%;
+  --warm: 24 60% 45%;
+  --destructive: 0 75% 55%;
+  --radius: 0.5rem;
+}
+
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Sarabun', sans-serif;
-  background: #f5f5f7;
-  color: #1f2328;
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
   max-width: 600px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 32px 16px;
+}
+
+.title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 header h1 {
-  margin: 0 0 12px;
-  font-size: 24px;
-  font-weight: 700;
+  margin: 0;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: 0.5px;
+  color: hsl(var(--foreground));
+}
+
+.mode-badge {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.mode-badge.local {
+  background: hsl(var(--warm) / 0.18);
+  color: hsl(var(--warm));
+  border: 1px solid hsl(var(--warm) / 0.3);
+}
+
+.mode-badge.remote {
+  background: hsl(var(--accent) / 0.18);
+  color: hsl(142 40% 55%);
+  border: 1px solid hsl(var(--accent) / 0.3);
 }
 
 nav {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 24px;
 }
 
 nav a {
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
   text-decoration: none;
-  color: #555;
-  background: #e8e8ec;
+  color: hsl(var(--muted));
+  background: transparent;
   font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+nav a:hover {
+  color: hsl(var(--foreground));
+  background: hsl(var(--secondary) / 0.5);
 }
 
 nav a.active {
-  background: #1f6feb;
-  color: white;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 .card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  background: hsl(var(--card));
+  padding: 24px;
+  border-radius: calc(var(--radius) + 4px);
+  border: 1px solid hsl(var(--border));
 }
 
-.card.empty {
-  text-align: center;
-  color: #888;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.muted {
+  color: hsl(var(--muted));
+  font-size: 14px;
 }
 
 label {
   display: block;
-  margin-bottom: 14px;
-  font-size: 14px;
-  color: #444;
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: hsl(var(--foreground) / 0.85);
+  letter-spacing: 0.3px;
 }
 
 input {
   display: block;
   width: 100%;
-  padding: 10px 12px;
-  margin-top: 6px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 11px 14px;
+  margin-top: 8px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
   font-size: 16px;
   font-family: inherit;
+  background: hsl(var(--input-bg));
+  color: hsl(var(--foreground));
+  transition: border-color 0.15s ease;
+}
+
+input::placeholder {
+  color: hsl(var(--muted) / 0.7);
 }
 
 input:focus {
   outline: none;
-  border-color: #1f6feb;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15);
 }
 
 .actions {
   display: flex;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 11px 20px;
   border: none;
-  border-radius: 8px;
-  background: #1f6feb;
-  color: white;
+  border-radius: var(--radius);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
   font-size: 14px;
-  cursor: pointer;
+  font-weight: 600;
   font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.2px;
+}
+
+button:hover:not(:disabled) {
+  background: hsl(36 72% 58%);
+  transform: translateY(-1px);
 }
 
 button.secondary {
-  background: #e8e8ec;
-  color: #444;
+  background: hsl(var(--secondary));
+  color: hsl(var(--foreground));
+}
+
+button.secondary:hover:not(:disabled) {
+  background: hsl(var(--secondary) / 0.8);
 }
 
 button.danger {
-  background: #d73a49;
+  background: hsl(var(--destructive));
+  color: white;
 }
 
-button:hover { opacity: 0.9; }
+button.danger:hover:not(:disabled) {
+  background: hsl(0 75% 60%);
+}
+
+button.small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
 
 .flash {
-  margin-top: 14px;
-  padding: 10px 12px;
-  background: #e6f4ea;
-  color: #1e7a3a;
-  border-radius: 8px;
+  margin-top: 16px;
+  padding: 11px 14px;
+  background: hsl(var(--accent) / 0.15);
+  color: hsl(142 40% 60%);
+  border: 1px solid hsl(var(--accent) / 0.3);
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+
+.flash.error {
+  background: hsl(var(--destructive) / 0.15);
+  color: hsl(0 80% 70%);
+  border-color: hsl(var(--destructive) / 0.3);
+}
+
+.empty {
+  text-align: center;
+  color: hsl(var(--muted));
+  padding: 32px 0;
   font-size: 14px;
 }
 
@@ -118,9 +235,18 @@ table {
 
 th, td {
   text-align: left;
-  padding: 10px 8px;
-  border-bottom: 1px solid #eee;
+  padding: 12px 8px;
+  border-bottom: 1px solid hsl(var(--border));
   vertical-align: middle;
+  font-size: 14px;
+}
+
+th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: hsl(var(--muted));
 }
 
 th.num, td.num {
@@ -129,10 +255,24 @@ th.num, td.num {
   white-space: nowrap;
 }
 
+td.num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
 tfoot td {
   font-weight: 600;
   border-bottom: none;
-  border-top: 2px solid #ddd;
+  border-top: 2px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  padding-top: 14px;
+}
+
+tfoot td.num {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: hsl(var(--primary));
 }
 
 .row-actions {
@@ -142,10 +282,13 @@ tfoot td {
 }
 
 .row-actions button {
-  padding: 6px 10px;
+  padding: 6px 12px;
   font-size: 12px;
+  font-weight: 500;
 }
 
 .row-actions input {
   margin: 0;
+  padding: 6px 10px;
+  font-size: 14px;
 }
