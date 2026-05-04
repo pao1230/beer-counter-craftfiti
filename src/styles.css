@@ -336,3 +336,47 @@ td input[type="number"] {
   z-index: 20;
   white-space: nowrap;
 }
+
+@media (max-width: 520px) {
+  .card {
+    padding: 16px 12px;
+  }
+
+  tr.row-editing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 0;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  tr.row-editing > td {
+    display: block;
+    border: none;
+    padding: 0;
+  }
+
+  tr.row-editing > td:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  tr.row-editing > td.num {
+    flex: 0 0 80px;
+    text-align: left;
+    white-space: normal;
+  }
+
+  tr.row-editing > td.num input {
+    width: 80px;
+  }
+
+  tr.row-editing > td.row-actions {
+    flex: 1 1 100%;
+    justify-content: flex-end;
+  }
+
+  td input[type="text"], td input:not([type]) {
+    min-width: 0;
+  }
+}

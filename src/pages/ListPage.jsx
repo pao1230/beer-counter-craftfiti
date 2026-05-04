@@ -74,7 +74,7 @@ export default function ListPage() {
             {list.map((entry) => {
               const isEditing = editingName === entry.name
               return (
-                <tr key={entry.name}>
+                <tr key={entry.name} className={isEditing ? 'row-editing' : ''}>
                   <td>
                     {isEditing ? (
                       <input
