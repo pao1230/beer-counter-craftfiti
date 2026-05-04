@@ -84,7 +84,7 @@ export default function ListPage() {
                         onChange={(e) => setEditAmount(e.target.value)}
                       />
                     ) : (
-                      entry.amount
+                      entry.amount.toLocaleString()
                     )}
                   </td>
                   <td className="row-actions">
@@ -116,8 +116,8 @@ export default function ListPage() {
             <tfoot>
               <tr>
                 <td>รวม</td>
-                <td className="num">{total}</td>
-                <td>แก้ว</td>
+                <td className="num">{total.toLocaleString()}</td>
+                <td>ขวด</td>
               </tr>
             </tfoot>
           )}
