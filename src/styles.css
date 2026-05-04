@@ -292,3 +292,18 @@ tfoot td.num {
   padding: 6px 10px;
   font-size: 14px;
 }
+
+td input[type="text"], td input:not([type]) {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 14px;
+  min-width: 140px;
+  width: 100%;
+}
+
+td input[type="number"] {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 14px;
+  width: 80px;
+}
