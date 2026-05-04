@@ -6,6 +6,7 @@ export default function ListPage() {
   const [editingName, setEditingName] = useState(null)
   const [editName, setEditName] = useState('')
   const [editAmount, setEditAmount] = useState('')
+  const [floats, setFloats] = useState({})
 
   const startEdit = (entry) => {
     setEditingName(entry.name)
@@ -14,6 +15,15 @@ export default function ListPage() {
   }
 
   const cancel = () => setEditingName(null)
+
+  const handleQuickAdd = (name) => {
+    add(name, 1)
+    const id = Date.now() + Math.random()
+    setFloats(prev => ({ ...prev, [name]: [...(prev[name] || []), id] }))
+    setTimeout(() => {
+      setFloats(prev => ({ ...prev, [name]: (prev[name] || []).filter(i => i !== id) }))
+    }, 800)
+  }
 
   const save = async (originalName) => {
     const trimmed = editName.trim()
@@ -99,9 +109,14 @@ export default function ListPage() {
                       </>
                     ) : (
                       <>
-                        <button className="small" onClick={() => add(entry.name, 1)} disabled={busy}>
-                          +1
-                        </button>
+                        <span className="float-container">
+                          {(floats[entry.name] || []).map(id => (
+                            <span key={id} className="float-emoji">🍺</span>
+                          ))}
+                          <button className="small" onClick={() => handleQuickAdd(entry.name)} disabled={busy}>
+                            +1
+                          </button>
+                        </span>
                         <button className="secondary" onClick={() => startEdit(entry)} disabled={busy}>
                           แก้ไข
                         </button>
