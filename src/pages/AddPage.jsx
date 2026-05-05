@@ -7,8 +7,13 @@ export default function AddPage() {
   const [name, setName] = useSessionState('beerUserName', '')
   const [amount, setAmount] = useState('')
   const [flash, setFlash] = useState('')
-  const { add, busy, error } = useBeerList()
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const { add, busy, error, list } = useBeerList()
   const navigate = useNavigate()
+
+  const suggestions = name.trim()
+    ? list.filter(e => e.name.toLowerCase().startsWith(name.toLowerCase().trim()))
+    : []
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -18,7 +23,7 @@ export default function AddPage() {
     try {
       await add(trimmedName, n)
       setAmount('')
-      setFlash(`เพิ่ม ${n} แก้ว ให้ ${trimmedName} แล้ว`)
+      setFlash(`เพิ่ม ${n} ขวด ให้ ${trimmedName} แล้ว`)
       setTimeout(() => setFlash(''), 1800)
     } catch {
       // error shown via `error` from hook
@@ -29,14 +34,27 @@ export default function AddPage() {
     <form onSubmit={handleSubmit} className="card">
       <label>
         ชื่อ
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="ใส่ชื่อ"
-          autoFocus
-          required
-        />
+        <div className="autocomplete-wrapper">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => { setName(e.target.value); setShowSuggestions(true) }}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            placeholder="ใส่ชื่อ"
+            autoFocus
+            required
+          />
+          {showSuggestions && suggestions.length > 0 && (
+            <ul className="suggestions">
+              {suggestions.map(e => (
+                <li key={e.name} onMouseDown={() => { setName(e.name); setShowSuggestions(false) }}>
+                  {e.name}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </label>
       <label>
         จำนวนเบียร์
