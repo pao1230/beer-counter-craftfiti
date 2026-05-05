@@ -234,6 +234,22 @@ button:disabled {
   font-size: 14px;
 }
 
+.rank-col {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.rank {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rank-1 { color: #f5c518; }
+.rank-2 { color: #a8a9ad; }
+.rank-3 { color: #cd7f32; }
+.rank-4 { color: hsl(var(--muted)); font-weight: 400; }
+
 .search-input {
   display: block;
   width: 100%;

@@ -1,17 +1,25 @@
 import { useState } from 'react'
 import { useBeerList } from '../hooks/useBeerList.js'
 
+const RANK_LABELS = ['👑 ราชันขวด', '🥃 เซียนแก้ว', '🔥 ดาวเมา']
+const getRankLabel = (rank) => RANK_LABELS[rank - 1] ?? '🐣 ลูกกระจ้อก'
+const getRankClass = (rank) => `rank rank-${Math.min(rank, 4)}`
+
 export default function ListPage() {
-  const { list, update, remove, add, total, loading, busy, error, refresh } = useBeerList()
+  const { list, update, remove, add, loading, busy, error, refresh } = useBeerList()
   const [editingName, setEditingName] = useState(null)
   const [editName, setEditName] = useState('')
   const [editAmount, setEditAmount] = useState('')
   const [floats, setFloats] = useState({})
   const [search, setSearch] = useState('')
 
+  const rankMap = Object.fromEntries(list.map((e, i) => [e.name, i + 1]))
+
   const filtered = search.trim()
     ? list.filter(e => e.name.toLowerCase().includes(search.toLowerCase()))
     : list
+
+  const filteredTotal = filtered.reduce((s, e) => s + (e.amount || 0), 0)
 
   const startEdit = (entry) => {
     setEditingName(entry.name)
@@ -78,6 +86,7 @@ export default function ListPage() {
         <table>
           <thead>
             <tr>
+              <th className="rank-col">ตำแหน่ง</th>
               <th>ชื่อ</th>
               <th className="num">จำนวน</th>
               <th></th>
@@ -85,12 +94,16 @@ export default function ListPage() {
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan={3} className="empty">ไม่พบชื่อ "{search}"</td></tr>
+              <tr><td colSpan={4} className="empty">ไม่พบชื่อ "{search}"</td></tr>
             )}
             {filtered.map((entry) => {
               const isEditing = editingName === entry.name
+              const rank = rankMap[entry.name]
               return (
                 <tr key={entry.name}>
+                  <td className="rank-col">
+                    <span className={getRankClass(rank)}>{getRankLabel(rank)}</span>
+                  </td>
                   <td>
                     {isEditing ? (
                       <input
@@ -149,8 +162,8 @@ export default function ListPage() {
           {list.length > 0 && (
             <tfoot>
               <tr>
-                <td>รวม</td>
-                <td className="num">{total.toLocaleString()}</td>
+                <td colSpan={2}>รวม{search.trim() ? ' (กรอง)' : ''}</td>
+                <td className="num">{filteredTotal.toLocaleString()}</td>
                 <td>ขวด</td>
               </tr>
             </tfoot>
