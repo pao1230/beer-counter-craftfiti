@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useBeerList } from '../hooks/useBeerList.js'
 
-const RANK_LABELS = ['👑 ราชันขวด', '🥃 เซียนแก้ว', '🔥 ดาวเมา']
+const RANK_LABELS = ['👑 มหาเทพสุรา', '🥃 จ้าวสุรา', '🔥 ศิษย์สุรา']
 const getRankLabel = (rank) => RANK_LABELS[rank - 1] ?? '🐣 ลูกกระจ้อก'
 const getRankClass = (rank) => `rank rank-${Math.min(rank, 4)}`
 
