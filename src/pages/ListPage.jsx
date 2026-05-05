@@ -7,6 +7,11 @@ export default function ListPage() {
   const [editName, setEditName] = useState('')
   const [editAmount, setEditAmount] = useState('')
   const [floats, setFloats] = useState({})
+  const [search, setSearch] = useState('')
+
+  const filtered = search.trim()
+    ? list.filter(e => e.name.toLowerCase().includes(search.toLowerCase()))
+    : list
 
   const startEdit = (entry) => {
     setEditingName(entry.name)
@@ -57,6 +62,14 @@ export default function ListPage() {
         </button>
       </div>
 
+      <input
+        className="search-input"
+        type="search"
+        placeholder="ค้นหาชื่อ…"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
+
       {error && <div className="flash error">{error}</div>}
 
       {!loading && list.length === 0 ? (
@@ -71,7 +84,10 @@ export default function ListPage() {
             </tr>
           </thead>
           <tbody>
-            {list.map((entry) => {
+            {filtered.length === 0 && (
+              <tr><td colSpan={3} className="empty">ไม่พบชื่อ "{search}"</td></tr>
+            )}
+            {filtered.map((entry) => {
               const isEditing = editingName === entry.name
               return (
                 <tr key={entry.name}>
